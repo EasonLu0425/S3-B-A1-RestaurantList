@@ -62,9 +62,15 @@ app.get('/restaurants/new', (req, res) => {
 })
 
 app.post('/restaurants', (req, res) =>{
-  const name = req.body.name
+   const name = req.body.name
+  const name_en = req.body.name_en
+  const category = req.body.category
+  const location = req.body.location
+  const phone = req.body.phone
+  const image = req.body.image
+  const description = req.body.description
   
-  return Restaurants.create({name})
+  return Restaurants.create({name},{name_en},{category},{location},{phone},{image},{description} )
     .then(()=> {res.redirect('/')})
     .catch(error => console.log(error))
 })
@@ -80,7 +86,7 @@ app.get('/restaurants/:id/edit', (req, res) => {
 app.post('/restaurants/:id/edit', (req,res) => {
   const id = req.params.id
   const name = req.body.name
-  const nameEN = req.body.name_en
+  const name_en = req.body.name_en
   const category = req.body.category
   const location = req.body.location
   const phone = req.body.phone
@@ -91,7 +97,7 @@ app.post('/restaurants/:id/edit', (req,res) => {
   return Restaurants.findById(id)
                     .then(restaurant => {
                       restaurant.name = name
-                      restaurant.name_en = nameEN
+                      restaurant.name_en = name_en
                       restaurant.category = category
                       restaurant.location = location
                       restaurant.phone = phone
@@ -100,6 +106,14 @@ app.post('/restaurants/:id/edit', (req,res) => {
                     })
                     .then(() => res.redirect(`/restaurants/${id}`))
                     .catch(error => console.log(error))
+})
+
+app.post('/restaurants/:id/delete', (req, res) => {
+  const id = req.params.id
+  return Restaurants.findById(id)
+    .then(restaurant => restaurant.deleteOne())
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
 })
 
 app.listen(port, () =>{
