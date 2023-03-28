@@ -24,7 +24,7 @@ db.once('open', () => {
       rating: element.rating,
       description: element.description
     })
-  console.log('done!')
   });
+  console.log('done!')
 })
 
