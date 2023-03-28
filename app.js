@@ -36,12 +36,13 @@ app.get('/', (req, res) => {
              .catch(error => console.error(error))
 })
 
-// app.get('/restaurants/:restaurant_id', (req, res) => {  
-//   const restaurant = restaurants.results.find(
-//     restaurant => restaurant.id.toString() === req.params.restaurant_id
-//   )  
-//   res.render('show', {restaurant: restaurant })
-// })
+app.get('/restaurants/:restaurant_id', (req, res) => {  
+  const id = req.params.restaurant_id
+  return Restaurants.findById(id)
+                    .lean()
+                    .then(restaurant => res.render('show', {restaurant}))
+                    .catch(error => console.log(error))
+})
 
 app.get('/search', (req, res) => {
   if (!req.query.keywords) {
@@ -66,6 +67,39 @@ app.post('/restaurants', (req, res) =>{
   return Restaurants.create({name})
     .then(()=> {res.redirect('/')})
     .catch(error => console.log(error))
+})
+
+app.get('/restaurants/:id/edit', (req, res) => {
+    const id = req.params.id
+    return Restaurants.findById(id)
+                      .lean()
+                      .then(restaurant => res.render('edit', {restaurant}))
+                      .catch(error => console.log(error))
+})
+
+app.post('/restaurants/:id/edit', (req,res) => {
+  const id = req.params.id
+  const name = req.body.name
+  const nameEN = req.body.name_en
+  const category = req.body.category
+  const location = req.body.location
+  const phone = req.body.phone
+  const image = req.body.image
+  const description = req.body.description
+ 
+  console.log(image)
+  return Restaurants.findById(id)
+                    .then(restaurant => {
+                      restaurant.name = name
+                      restaurant.name_en = nameEN
+                      restaurant.category = category
+                      restaurant.location = location
+                      restaurant.phone = phone
+                      restaurant.description = description
+                      return restaurant.save()
+                    })
+                    .then(() => res.redirect(`/restaurants/${id}`))
+                    .catch(error => console.log(error))
 })
 
 app.listen(port, () =>{
