@@ -3,7 +3,6 @@ const Schema = mongoose.Schema
 const restaurantsSchema = new Schema({
   name: {
     type : String,
-    required: ture
   },
   name_en: {
     type : String,
