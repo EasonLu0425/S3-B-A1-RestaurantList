@@ -7,9 +7,6 @@ const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 
 require('./config/mongoose')
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config()
-}
 
 
 app.engine('handlebars', exphbs({defaultLayout:'main'}))
