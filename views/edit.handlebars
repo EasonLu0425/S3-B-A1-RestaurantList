@@ -1,4 +1,4 @@
-<form action="/restaurants/{{restaurant._id}}/edit" method="POST" class="d-flex flex-column m-3">
+<form action="/restaurants/{{restaurant._id}}?_method=PUT" method="POST" class="d-flex flex-column m-3">
   <div class="mb-3">
     <label for="name">餐廳名稱：</label>
     <input type="text" placeholder="請輸入餐廳名稱" name="name" id="name" class="mb-1 restaurant-show-title"
