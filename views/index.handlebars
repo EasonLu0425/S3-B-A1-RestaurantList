@@ -44,15 +44,16 @@
                 <i class="fas fa-star fa-xs"></i>
               </span>
             </div>
-            {{!-- {{#if (this.userId === userId)}} --}}
             <div class="p-2">
-              <a href="/restaurants/{{this._id}}/edit" class="m-1">edit</a>
               <a href="/restaurants/{{this._id}}" class="text-secondary m-1">detail</a>
-              <form action="/restaurants/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
-                <button type="submit" class="btn btn-danger m-1">delete</button>
-              </form>
+              {{!-- {{#if (this.userId === userId)}} --}}
+                <a href="/restaurants/{{this._id}}/edit" class="m-1">edit</a>
+                <form action="/restaurants/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
+                  <button type="submit" class="btn btn-danger m-1">delete</button>
+                </form>
+              {{!-- {{/if}} --}}
             </div> 
-            {{!-- {{/if}} --}}
+
           </div>
         </div>
         {{/each}}
