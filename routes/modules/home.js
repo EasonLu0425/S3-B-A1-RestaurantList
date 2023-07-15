@@ -3,11 +3,15 @@ const router = express.Router()
 const Restaurants = require('../../models/restaurants')
 
 router.get('/', (req, res) => {
-  Restaurants.find()
-             .lean()
-             .sort({_id: 'asc'})
-             .then(restaurants => res.render('index', {restaurants}))
-             .catch(error => console.error(error))
+  const userId = req.user._id;
+  
+  Restaurants.find({userId})
+    .lean()
+    .sort({ _id: "asc" })
+    .then((restaurants) => {
+      res.render("index", { restaurants });
+    })
+    .catch((error) => console.error(error));
 })
 
 router.get('/search', (req, res) => {

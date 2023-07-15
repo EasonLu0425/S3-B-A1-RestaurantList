@@ -2,7 +2,11 @@ const mongoose = require('mongoose')
 const dotenv = require("dotenv");
 
 dotenv.config()
-mongoose.connect( process.env.MONGODB_URI , { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+});
 const db = mongoose.connection
 
 if (process.env.NODE_ENV !== 'production') {

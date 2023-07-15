@@ -1,42 +1,58 @@
 <!-- ./views/layouts/main.handlebars -->
-<!DOCTYPE html>
+
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Restaurant Recommenation</title>
-  <link rel="stylesheet" href="/stylesheets/bootstrap.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Restaurant Recommenation</title>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.css" />
 
-  <!-- navigation -->
-  <nav class="navbar navbar-light bg-light">
-    <div class="container">
-      <a class="navbar-brand" href="/">
-        <img src="https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/6227/restaurant-list-logo.png" width="30"
-          height="30" class="d-inline-block align-top" alt="我的餐廳清單">
-        94愛吃
-      </a>
-      <a href="/create">
-        <button type="button" class="btn btn-outline-primary">Create</button>
-      </a>
-    </div>
-  </nav>
-  
-  <div class="banner"></div>
-  
-</head>
+    <!-- navigation -->
+    <nav class="navbar navbar-light bg-light">
+      <div class="container">
+        <a class="navbar-brand" href="/">
+          <img
+            src="https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/6227/restaurant-list-logo.png"
+            width="30"
+            height="30"
+            class="d-inline-block align-top"
+            alt="我的餐廳清單"
+          />
+          94愛吃
+        </a>
+        {{#if isAuthenticated}}
+          <p
+            style="text-align: center"
+          >歡迎回來，{{ user.name}}</p>
+          <a href="/users/logout">
+            <button
+              type="button"
+              class="btn btn-outline-primary"
+            >Logout</button>
+          </a>
+        {{else}}
+          <a href="/users/login">
+            <button type="button" class="btn btn-outline-primary">Login</button>
+          </a>
+        {{/if}}
+      </div>
+    </nav>
 
-<body>
+    <div class="banner"></div>
 
+  </head>
 
-<!-- load popper.js and bootstrap -->
-<script src="/javascripts/popper.js"></script>
-<script src="/javascripts/bootstrap.js"></script>
+  <body>
 
-  <!-- partial templates will replace the part of "body" here -->
-  {{{ body }}}
+    <!-- load popper.js and bootstrap -->
+    <script src="/javascripts/popper.js"></script>
+    <script src="/javascripts/bootstrap.js"></script>
 
-</body>
+    <!-- partial templates will replace the part of "body" here -->
+    {{{body}}}
+
+  </body>
 
 </html>
