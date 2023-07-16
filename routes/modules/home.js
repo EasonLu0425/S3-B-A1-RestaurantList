@@ -16,7 +16,6 @@ Handlebars.registerHelper(
 
 router.get("/", (req, res) => {
   const currentUserId = req.user._id;
-  console.log(currentUserId);
   Restaurants.find()
     .lean()
     .sort({ _id: "asc" })
@@ -28,11 +27,11 @@ router.get("/", (req, res) => {
 
 router.get("/search", (req, res) => {
   const currentUserId = req.user._id;
-  console.log(req.query.keywords);
-  if (!req.query.keywords) {
+
+  const keywords = req.query.keywords.trim().toLowerCase();
+  if (keywords) {
     return res.redirect("/");
   }
-  const keywords = req.query.keywords.trim().toLowerCase();
   Restaurants.find()
     .lean()
     .sort({ _id: "asc" })
@@ -45,7 +44,7 @@ router.get("/search", (req, res) => {
       return res.render("index", {
         restaurants,
         keywords,
-        currentUserId
+        currentUserId,
       });
     });
 });
